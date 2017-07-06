@@ -51,13 +51,13 @@ class Output {
 		self::pipe('', $charBorder);
 	}
 
-	private function list_item($data) {
+	private static function list_item($data) {
 		$data = trim($data);
 		$data = mb_substr($data, 0, 72);
 		echo ' * ' . $data . PHP_EOL;
 	}
 
-	private function item($data) {
+	private static function item($data) {
 		$data = trim($data);
 		$data = mb_substr($data, 0, 76);
 		echo ' ' . $data . PHP_EOL;
