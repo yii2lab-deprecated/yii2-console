@@ -9,7 +9,7 @@ class Output {
 		exit;
 	}
 
-	static function line($data, $newLine = 'after') {
+	static function line($data = '', $newLine = 'after') {
 		if($newLine == 'before' || $newLine == 'both') {
 			echo PHP_EOL;
 		}
