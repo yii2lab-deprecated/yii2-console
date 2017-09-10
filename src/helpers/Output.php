@@ -65,7 +65,7 @@ class Output {
 
 	static function items($data, $title = '', $charBorder = '-') {
 		self::pipe($title, $charBorder);
-		echo PHP_EOL;
+		//echo PHP_EOL;
 		if(!empty($data)) {
 			foreach($data as $item) {
 				self::list_item($item);
@@ -76,7 +76,7 @@ class Output {
 
 	static function arr($data, $title = '', $charBorder = '-') {
 		self::pipe($title, $charBorder);
-		echo PHP_EOL;
+		//echo PHP_EOL;
 		foreach($data as $key => $item) {
 			self::item($key . ': ' . $item);
 		}
