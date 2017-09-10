@@ -45,7 +45,7 @@ class Question {
 	}
 
 	private static function printMessageAndOptions($question, $assocOptions) {
-		echo PHP_EOL . $question . ' [' . implode('|', $assocOptions) . ']: ';
+		echo $question . ' [' . implode('|', $assocOptions) . ']: ';
 	}
 
 	private static function confirmGetOptions($options) {
