@@ -4,6 +4,8 @@ namespace yii2lab\console\helpers;
 
 class Output {
 
+	const lineLen = 78;
+
 	static function quit() {
 		self::pipe('Quit');
 		exit;
@@ -24,20 +26,21 @@ class Output {
 		$title = mb_substr($title, 0, 72);
 		$titleLen = mb_strlen($title);
 		if($titleLen > 0) {
-			$lenForPipe = 80 - $titleLen - 2;
+			$lenForPipe = self::lineLen - $titleLen - 2;
 			$pipeLen =  intval($lenForPipe / 2);
 			$pipe =  str_repeat($charBorder, $pipeLen) . ' ' . $title . ' ' . str_repeat($charBorder, $pipeLen);
-			if(mb_strlen($pipe) < 80) {
+			if(mb_strlen($pipe) < self::lineLen) {
 				$pipe .= $charBorder;
 			}
 		} else {
-			$pipe = str_repeat($charBorder, 80);
+			$pipe = str_repeat($charBorder, self::lineLen);
 		}
 		echo $pipe;
+		echo PHP_EOL;
 	}
 
 	static function block($data, $title = '', $charBorder = '-', $charWrap = '') {
-		$consoleLen = 80 - 2 - (mb_strlen($charWrap) * 2);
+		$consoleLen = self::lineLen - 2 - (mb_strlen($charWrap) * 2);
 		$dataArr = str_split($data, $consoleLen);
 		$tmp = '';
 		foreach($dataArr as $str) {
@@ -84,7 +87,7 @@ class Output {
 	}
 
 	private static function _item($str, $charWrap = '|') {
-		$consoleLen = 80 - 2 - (mb_strlen($charWrap) * 2);
+		$consoleLen = self::lineLen - 2 - (mb_strlen($charWrap) * 2);
 		$len = mb_strlen($str);
 			$spacesLen = $consoleLen - $len;
 			$spaces = '';
