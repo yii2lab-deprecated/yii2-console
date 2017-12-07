@@ -28,6 +28,14 @@ class Select {
 		return $result;
 	}
 
+	public static function getFirstValue($answer) {
+		return array_values($answer)[0];
+	}
+	
+	public static function getFirstKey($answer) {
+		return array_keys($answer)[0];
+	}
+	
 	private static function selectAssign($options, $keys) {
 		foreach($keys as $k) {
 			$k = trim($k);
