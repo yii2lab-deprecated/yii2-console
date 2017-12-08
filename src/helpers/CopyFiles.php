@@ -57,8 +57,8 @@ class CopyFiles {
 	
 	private function copyFile($source, $target)
 	{
-		$sourceFile = FileHelper::rootPath() . DS . $source;
-		$targetFile = FileHelper::rootPath() . DS . $target;
+		$sourceFile = FileHelper::rootPath() . '/' . $source;
+		$targetFile = FileHelper::rootPath() . '/' . $target;
 		if (!is_file($sourceFile)) {
 			Output::line("     skip $target ($source not exist)");
 			return true;
