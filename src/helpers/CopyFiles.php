@@ -30,6 +30,7 @@ class CopyFiles {
 	public function getFileList($root, $basePath = '')
 	{
 		$files = [];
+		$root = FileHelper::normalizePath($root);
 		$handle = opendir($root);
 		while (($path = readdir($handle)) !== false) {
 			if (in_array($path, $this->ignoreNames)) {
@@ -44,6 +45,7 @@ class CopyFiles {
 			}
 		}
 		closedir($handle);
+		$files = FileHelper::normalizePathList($files);
 		return $files;
 	}
 
@@ -57,8 +59,11 @@ class CopyFiles {
 	
 	private function copyFile($source, $target)
 	{
-		$sourceFile = FileHelper::rootPath() . '/' . $source;
-		$targetFile = FileHelper::rootPath() . '/' . $target;
+		$source = FileHelper::normalizePath($source);
+		$target = FileHelper::normalizePath($target);
+		$sourceFile = FileHelper::rootPath() . DIRECTORY_SEPARATOR . $source;
+		$targetFile = FileHelper::rootPath() . DIRECTORY_SEPARATOR . $target;
+		
 		if (!is_file($sourceFile)) {
 			Output::line("     skip $target ($source not exist)");
 			return true;
