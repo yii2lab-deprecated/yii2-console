@@ -48,7 +48,7 @@ class Output {
 		}
 		echo PHP_EOL;
 		self::pipe($title, $charBorder);
-		echo PHP_EOL;
+		//echo PHP_EOL;
 		echo $tmp;
 		echo PHP_EOL;
 		self::pipe('', $charBorder);
