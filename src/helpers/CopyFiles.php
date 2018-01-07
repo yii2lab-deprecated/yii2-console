@@ -7,6 +7,8 @@ use yii2lab\helpers\yii\FileHelper;
 
 class CopyFiles {
 	
+	const DIR_ACCESS = 0777;
+	
 	protected $projectConfig;
 	protected $isCopyAll = false;
 	protected $ignoreNames = [
@@ -76,11 +78,11 @@ class CopyFiles {
 			if($this->runOverwriteDialog($target)) {
 				return true;
 			}
-			FileHelper::copy($sourceFile, $targetFile, 0777);
+			FileHelper::copy($sourceFile, $targetFile, self::DIR_ACCESS);
 			return true;
 		}
 		Output::line("generate $target");
-		FileHelper::copy($sourceFile, $targetFile, 0777);
+		FileHelper::copy($sourceFile, $targetFile, self::DIR_ACCESS);
 		return true;
 	}
 
