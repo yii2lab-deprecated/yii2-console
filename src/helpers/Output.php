@@ -2,10 +2,30 @@
 
 namespace yii2lab\console\helpers;
 
+use yii2lab\helpers\StringHelper;
+
 class Output {
 
 	const lineLen = 78;
-
+	
+	static function autoWrap($text, $maxLineLength = self::lineLen) {
+		$words = StringHelper::textToArray($text);
+		$line = [];
+		foreach($words as $word) {
+			$lineStr = trim(implode(SPC, $line));
+			$lenWithNewWord = strlen($lineStr) + strlen(SPC) + strlen($word);
+			if($lenWithNewWord > $maxLineLength) {
+				$a[] = $lineStr;
+				$line = [];
+			}
+			$line[] = $word;
+		}
+		if(!empty($line)) {
+			$a[] = implode(SPC, $line);
+		}
+		self::line(implode(PHP_EOL, $a));
+	}
+	
 	static function quit() {
 		self::pipe('Quit');
 		exit;
