@@ -34,6 +34,9 @@ class CopyFiles {
 		$files = [];
 		$root = FileHelper::normalizePath($root);
 		$handle = opendir($root);
+		if(empty($handle)) {
+			return [];
+		}
 		while (($path = readdir($handle)) !== false) {
 			if (in_array($path, $this->ignoreNames)) {
 				continue;
