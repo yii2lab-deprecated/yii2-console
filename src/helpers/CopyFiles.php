@@ -33,6 +33,9 @@ class CopyFiles {
 	{
 		$files = [];
 		$root = FileHelper::normalizePath($root);
+		if(!is_dir($root)) {
+			return [];
+		}
 		$handle = opendir($root);
 		if(empty($handle)) {
 			return [];
