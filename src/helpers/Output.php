@@ -8,6 +8,12 @@ class Output {
 
 	const lineLen = 78;
 	
+	static function getDots($text, $reservedLength, $char = DOT) {
+		$packageNameLen = strlen($text);
+		$dots = str_repeat($char, $reservedLength - $packageNameLen);
+		return $dots;
+	}
+	
 	static function autoWrap($text, $maxLineLength = self::lineLen) {
 		$words = StringHelper::textToArray($text);
 		$line = [];
