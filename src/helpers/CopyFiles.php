@@ -7,11 +7,10 @@ use yii2lab\helpers\yii\FileHelper;
 
 class CopyFiles {
 	
-	const DIR_ACCESS = 0777;
-	
-	protected $projectConfig;
-	protected $isCopyAll = false;
-	protected $ignoreNames = [
+	public $dirAccess = 0777;
+	public $skipFiles = [];
+	public $isCopyAll = false;
+	public $ignoreNames = [
 		'.',
 		'..',
 	];
@@ -59,8 +58,8 @@ class CopyFiles {
 
 	private function filterSkipFiles($files)
 	{
-		if (isset($this->projectConfig['skipFiles'])) {
-			$files = array_diff($files, $this->projectConfig['skipFiles']);
+		if (!empty($this->skipFiles)) {
+			$files = array_diff($files, $this->skipFiles);
 		}
 		return $files;
 	}
@@ -84,11 +83,11 @@ class CopyFiles {
 			if($this->runOverwriteDialog($target)) {
 				return true;
 			}
-			FileHelper::copy($sourceFile, $targetFile, self::DIR_ACCESS);
+			FileHelper::copy($sourceFile, $targetFile, $this->dirAccess);
 			return true;
 		}
 		Output::line("generate $target");
-		FileHelper::copy($sourceFile, $targetFile, self::DIR_ACCESS);
+		FileHelper::copy($sourceFile, $targetFile, $this->dirAccess);
 		return true;
 	}
 
