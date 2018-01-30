@@ -4,8 +4,6 @@ namespace yii2lab\console\helpers;
 
 use yii\helpers\ArrayHelper;
 
-// todo: move to console vendor
-
 class ArgHelper {
 	
 	public static function one($name) {
