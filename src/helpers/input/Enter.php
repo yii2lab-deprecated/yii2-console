@@ -41,7 +41,7 @@ class Enter {
 	}
 	
 	private static function inputAll(Model $form) {
-		$only = [];
+		$only = $form->activeAttributes();
 		do {
 			self::formInput($form, $only);
 			$isValidate = $form->validate();
