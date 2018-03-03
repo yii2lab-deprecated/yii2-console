@@ -36,7 +36,12 @@ class Output {
 		self::pipe('Quit');
 		exit;
 	}
-
+	
+	static function title($text) {
+		Output::line();
+		Output::line("  === $text ===");
+	}
+	
 	static function line($data = '', $newLine = 'after') {
 		if($newLine == 'before' || $newLine == 'both') {
 			echo PHP_EOL;
