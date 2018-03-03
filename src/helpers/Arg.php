@@ -27,8 +27,11 @@ class Arg {
 	
 	public function options() {
 		$options = [];
+		if(empty($this->args)) {
+			return $options;
+		}
 		foreach($this->args as $arg) {
-			if(!is_array($arg)) {
+			if(!empty($arg) && !is_array($arg)) {
 				if($arg{0} == '-' && $arg{1} != '-') {
 					$aliasName = trim($arg, '-');
 					$options[] = '--' . $this->aliases[$aliasName];
