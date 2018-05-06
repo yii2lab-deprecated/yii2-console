@@ -22,6 +22,14 @@ class Select {
 			$result = array_key_exists($answer, $options) ? $options[$answer] : null;
 		}
 		$result = self::selectGetResult($options, $answer);
+		
+		Output::line('Selected values: ');
+		foreach($result as $value) {
+			Output::line(' * ' . $value);
+		}
+		Output::pipe();
+		Output::line();
+		
 		if(empty($result)) {
 			exit;
 		}
