@@ -15,7 +15,7 @@ class Select {
 			Output::quit();
 		} elseif($answer == 'c' && $isCustom) {
 			$result = Enter::display('Enter custom value');
-			return $result;
+			return ['c' => $result];
 		}
 		$result = null;
 		if(!$isMulti) {

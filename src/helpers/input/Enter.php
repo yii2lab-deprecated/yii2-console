@@ -11,6 +11,7 @@ use yii2lab\console\helpers\Output;
 class Enter {
 	
 	static function display($message, $type = 'string') {
+		Output::line();
 		echo PHP_EOL . $message . ': ';
 		$answer = trim(fgets(STDIN));
 		return $answer;
