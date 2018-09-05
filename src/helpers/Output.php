@@ -2,11 +2,13 @@
 
 namespace yii2lab\console\helpers;
 
+use yii\helpers\Console;
 use yii2lab\helpers\StringHelper;
+use yii2lab\helpers\yii\ArrayHelper;
 
 class Output {
-
-	const lineLen = 78;
+	
+	const LINE_LEN = 78;
 	
 	static function getDots($text, $reservedLength, $char = DOT) {
 		$packageNameLen = strlen($text);
@@ -14,7 +16,7 @@ class Output {
 		return $dots;
 	}
 	
-	static function autoWrap($text, $maxLineLength = self::lineLen) {
+	static function autoWrap($text, $maxLineLength = self::LINE_LEN) {
 		$words = StringHelper::textToArray($text);
 		$line = [];
 		foreach($words as $word) {
@@ -37,41 +39,50 @@ class Output {
 		exit;
 	}
 	
+	static function wrap($text, $args = []) {
+		if(empty($args)) {
+			return $text;
+		}
+		$args = ArrayHelper::toArray($args);
+		$text = Console::ansiFormat($text, $args);
+		return $text;
+	}
+	
 	static function title($text) {
 		Output::line();
 		Output::line("  === $text ===");
 	}
 	
-	static function line($data = '', $newLine = 'after') {
+	static function line($data = '', $newLine = 'after', $args = null) {
 		if($newLine == 'before' || $newLine == 'both') {
 			echo PHP_EOL;
 		}
-		echo $data;
+		echo self::wrap($data, $args);
 		if($newLine == 'after' || $newLine == 'both') {
 			echo PHP_EOL;
 		}
 	}
 
-	static function pipe($title = '', $charBorder = '-') {
+	static function pipe($title = '', $charBorder = '-', $args = null) {
 		$title = trim($title);
 		$title = mb_substr($title, 0, 72);
 		$titleLen = mb_strlen($title);
 		if($titleLen > 0) {
-			$lenForPipe = self::lineLen - $titleLen - 2;
-			$pipeLen =  intval($lenForPipe / 2);
-			$pipe =  str_repeat($charBorder, $pipeLen) . ' ' . $title . ' ' . str_repeat($charBorder, $pipeLen);
-			if(mb_strlen($pipe) < self::lineLen) {
+			$lenForPipe = self::LINE_LEN - $titleLen - 2;
+			$pipeLen = intval($lenForPipe / 2);
+			$pipe = str_repeat($charBorder, $pipeLen) . ' ' . $title . ' ' . str_repeat($charBorder, $pipeLen);
+			if(mb_strlen($pipe) < self::LINE_LEN) {
 				$pipe .= $charBorder;
 			}
 		} else {
-			$pipe = str_repeat($charBorder, self::lineLen);
+			$pipe = str_repeat($charBorder, self::LINE_LEN);
 		}
-		echo $pipe;
+		echo self::wrap($pipe, $args);
 		echo PHP_EOL;
 	}
 
 	static function block($data, $title = '', $charBorder = '-', $charWrap = '') {
-		$consoleLen = self::lineLen - 2 - (mb_strlen($charWrap) * 2);
+		$consoleLen = self::LINE_LEN - 2 - (mb_strlen($charWrap) * 2);
 		$dataArr = str_split($data, $consoleLen);
 		$tmp = '';
 		foreach($dataArr as $str) {
@@ -118,14 +129,14 @@ class Output {
 	}
 
 	private static function _item($str, $charWrap = '|') {
-		$consoleLen = self::lineLen - 2 - (mb_strlen($charWrap) * 2);
+		$consoleLen = self::LINE_LEN - 2 - (mb_strlen($charWrap) * 2);
 		$len = mb_strlen($str);
-			$spacesLen = $consoleLen - $len;
-			$spaces = '';
-			if($spacesLen > 0) {
-				$spaces = str_repeat(' ', abs($spacesLen));
-			}
-			return $charWrap . ' ' . $str . $spaces . ' ' . $charWrap;
+		$spacesLen = $consoleLen - $len;
+		$spaces = '';
+		if($spacesLen > 0) {
+			$spaces = str_repeat(' ', abs($spacesLen));
+		}
+		return $charWrap . ' ' . $str . $spaces . ' ' . $charWrap;
 	}
 
 }
