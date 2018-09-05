@@ -3,6 +3,7 @@
 namespace yii2lab\console\helpers;
 
 use yii\helpers\Console;
+use yii2lab\app\domain\helpers\EnvService;
 use yii2lab\helpers\StringHelper;
 use yii2lab\helpers\yii\ArrayHelper;
 
@@ -40,7 +41,7 @@ class Output {
 	}
 	
 	static function wrap($text, $args = []) {
-		if(empty($args)) {
+		if(empty($args) || ! EnvService::get('test.console.is_enable_args', true)) {
 			return $text;
 		}
 		$args = ArrayHelper::toArray($args);
