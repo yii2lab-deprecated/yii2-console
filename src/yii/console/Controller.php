@@ -7,8 +7,8 @@ namespace yii2lab\console\yii\console;
  *
  * @package yii2lab\console\yii\console
  *
- * @deprecated use \yii2lab\console\base\Controller
+ * @deprecated
  */
-class Controller extends \yii2lab\console\base\Controller {
+class Controller extends \yii2lab\extension\console\base\Controller {
 
 }
